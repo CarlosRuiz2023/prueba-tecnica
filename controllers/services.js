@@ -21,7 +21,7 @@ const municipiosGet = async (req, res) => {
     res.json({ municipios });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: "Error al obtener datos de estados" });
+    res.status(500).json({ msg: "Error al obtener datos del municipio" });
   }
 };
 

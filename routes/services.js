@@ -5,10 +5,6 @@ const { estadosGet, municipiosGet } = require("../controllers/services");
 const router = Router();
 
 router.get("/", estadosGet);
-router.get(
-  "/:estado",
-  [check("estado", "El estado no es obligatorio").not().isEmpty()],
-  municipiosGet
-);
+router.get("/:estado", municipiosGet);
 
 module.exports = router;

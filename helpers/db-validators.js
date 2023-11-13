@@ -1,3 +1,4 @@
+const { response } = require("express");
 const Cliente = require("../models/cliente");
 
 const emailExiste = async (email = "") => {
@@ -13,6 +14,20 @@ const emailExiste = async (email = "") => {
   }
 };
 
+const emailInexiste = async (email = "", id = 0) => {
+  //Verificar si el correo existe
+  const cliente = await Cliente.findOne({
+    where: {
+      email: email,
+    },
+  });
+  if (cliente) {
+    if (cliente.dataValues.id_cliente != `${id}`) {
+      throw new Error(`El email ${email} ya está registrado con otro ID`);
+    }
+  }
+};
+
 const existeClientePorId = async (id) => {
   // Verificar si el cliente existe por su ID
   const cliente = await Cliente.findByPk(id);
@@ -23,6 +38,7 @@ const existeClientePorId = async (id) => {
 };
 
 module.exports = {
+  emailInexiste,
   emailExiste,
   existeClientePorId,
 };

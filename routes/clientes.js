@@ -38,6 +38,8 @@ router.put(
     check("municipio", "El municipio es obligatorio").not().isEmpty(),
     check("colonia", "La colonia es obligatoria").not().isEmpty(),
     check("calle", "La calle es obligatoria").not().isEmpty(),
+    check("latitud", "La latitud es obligatoria").not().isEmpty(),
+    check("longitud", "La longitud es obligatoria").not().isEmpty(),
     check("email", "El correo no es valido").isEmail(),
     check("email").custom((email, { req }) => {
       const id = req.params.id; // Obtén el ID de los parámetros de la ruta
@@ -58,6 +60,8 @@ router.post(
     check("municipio", "El municipio es obligatorio").not().isEmpty(),
     check("colonia", "La colonia es obligatoria").not().isEmpty(),
     check("calle", "La calle es obligatoria").not().isEmpty(),
+    check("latitud", "La latitud es obligatoria").not().isEmpty(),
+    check("longitud", "La longitud es obligatoria").not().isEmpty(),
     check("email", "El correo no es valido").isEmail(),
     check("email").custom(emailExiste),
     validarCampos,

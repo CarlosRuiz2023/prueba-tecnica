@@ -65,7 +65,7 @@ router.post(
     check("municipio", "El municipio es obligatorio").not().isEmpty(),
     check("colonia", "La colonia es obligatoria").not().isEmpty(),
     check("calle", "La calle es obligatoria").not().isEmpty(),
-    check("cp", "El codigo postal es obligatorio").not().isEmpty(),
+    check("cp", "El codigo postal es obligatorio").not().isEmpty().isNumeric(),
     check("cp").custom(validarCP),
     check("latitud", "La latitud es obligatoria").not().isEmpty(),
     check("longitud", "La longitud es obligatoria").not().isEmpty(),

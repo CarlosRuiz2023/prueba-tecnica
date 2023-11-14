@@ -7,6 +7,7 @@ const {
   emailExiste,
   existeClientePorId,
   emailInexiste,
+  validarCP,
 } = require("../helpers/db-validators");
 
 const {
@@ -34,17 +35,19 @@ router.put(
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     check("telefono", "El telefono es obligatorio").not().isEmpty(),
     check("email", "El email es obligatorio").not().isEmpty(),
-    check("estado", "El estado es obligatorio").not().isEmpty(),
-    check("municipio", "El municipio es obligatorio").not().isEmpty(),
-    check("colonia", "La colonia es obligatoria").not().isEmpty(),
-    check("calle", "La calle es obligatoria").not().isEmpty(),
-    check("latitud", "La latitud es obligatoria").not().isEmpty(),
-    check("longitud", "La longitud es obligatoria").not().isEmpty(),
     check("email", "El correo no es valido").isEmail(),
     check("email").custom((email, { req }) => {
       const id = req.params.id; // Obtén el ID de los parámetros de la ruta
       return emailInexiste(email, id);
     }),
+    check("estado", "El estado es obligatorio").not().isEmpty(),
+    check("municipio", "El municipio es obligatorio").not().isEmpty(),
+    check("colonia", "La colonia es obligatoria").not().isEmpty(),
+    check("calle", "La calle es obligatoria").not().isEmpty(),
+    check("cp", "El codigo postal es obligatorio").not().isEmpty(),
+    check("cp").custom(validarCP),
+    check("latitud", "La latitud es obligatoria").not().isEmpty(),
+    check("longitud", "La longitud es obligatoria").not().isEmpty(),
     validarCampos,
   ],
   clientesPut
@@ -56,14 +59,17 @@ router.post(
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     check("telefono", "El telefono es obligatorio").not().isEmpty(),
     check("email", "El email es obligatorio").not().isEmpty(),
+    check("email", "El correo no es valido").isEmail(),
+    check("email").custom(emailExiste),
     check("estado", "El estado es obligatorio").not().isEmpty(),
     check("municipio", "El municipio es obligatorio").not().isEmpty(),
     check("colonia", "La colonia es obligatoria").not().isEmpty(),
     check("calle", "La calle es obligatoria").not().isEmpty(),
+    check("cp", "El codigo postal es obligatorio").not().isEmpty(),
+    check("cp").custom(validarCP),
     check("latitud", "La latitud es obligatoria").not().isEmpty(),
     check("longitud", "La longitud es obligatoria").not().isEmpty(),
-    check("email", "El correo no es valido").isEmail(),
-    check("email").custom(emailExiste),
+
     validarCampos,
   ],
   clientesPost

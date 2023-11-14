@@ -48,13 +48,14 @@ const clientesPost = async (req, res = response) => {
       municipio,
       colonia,
       calle,
+      cp,
       latitud,
       longitud,
     } = req.body;
 
     // llamar procedimiento
     await Cliente.sequelize.query(
-      `CALL insertar_cliente(:nombre, :telefono, :email, :estado, :municipio, :colonia, :calle, :latitud, :longitud, :id_cliente)`,
+      `CALL insertar_cliente(:nombre, :telefono, :email, :estado, :municipio, :colonia, :calle,:cp, :latitud, :longitud, :id_cliente)`,
       {
         replacements: {
           nombre,
@@ -64,6 +65,7 @@ const clientesPost = async (req, res = response) => {
           municipio,
           colonia,
           calle,
+          cp,
           latitud,
           longitud,
           id_cliente: null, // lo populamos después
@@ -99,13 +101,14 @@ const clientesPut = async (req, res = response) => {
       municipio,
       colonia,
       calle,
+      cp,
       latitud,
       longitud,
     } = req.body;
 
     // Llamar al procedimiento
     await Cliente.sequelize.query(
-      `CALL actualizar_cliente(:id, :nombre, :telefono, :email, :estado, :municipio, :colonia, :calle, :latitud, :longitud)`,
+      `CALL actualizar_cliente(:id, :nombre, :telefono, :email,:cp, :estado, :municipio, :colonia, :calle, :latitud, :longitud)`,
       {
         replacements: {
           id,
@@ -116,6 +119,7 @@ const clientesPut = async (req, res = response) => {
           municipio,
           colonia,
           calle,
+          cp,
           latitud,
           longitud,
         },

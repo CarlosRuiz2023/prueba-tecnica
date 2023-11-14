@@ -37,8 +37,16 @@ const existeClientePorId = async (id) => {
   }
 };
 
+const validarCP = (value) => {
+  if (!/^\d{5}$/.test(value)) {
+    throw new Error("El CP debe tener 5 dígitos");
+  }
+  return true;
+};
+
 module.exports = {
   emailInexiste,
   emailExiste,
   existeClientePorId,
+  validarCP,
 };

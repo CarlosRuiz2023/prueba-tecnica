@@ -55,7 +55,7 @@ const clientesPost = async (req, res = response) => {
 
     // llamar procedimiento
     await Cliente.sequelize.query(
-      `CALL insertar_cliente(:nombre, :telefono, :email, :estado, :municipio, :colonia, :calle,:cp, :latitud, :longitud, :id_cliente)`,
+      `CALL insertar_cliente(:nombre, :telefono, :email, :estado, :municipio, :colonia, :calle, :cp, :latitud, :longitud, :id_cliente)`,
       {
         replacements: {
           nombre,
@@ -108,7 +108,7 @@ const clientesPut = async (req, res = response) => {
 
     // Llamar al procedimiento
     await Cliente.sequelize.query(
-      `CALL actualizar_cliente(:id, :nombre, :telefono, :email,:cp, :estado, :municipio, :colonia, :calle, :latitud, :longitud)`,
+      `CALL actualizar_cliente(:id, :nombre, :telefono, :email, :estado, :municipio, :colonia, :calle, :cp, :latitud, :longitud)`,
       {
         replacements: {
           id,

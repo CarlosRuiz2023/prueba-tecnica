@@ -4,6 +4,14 @@ const sequelize = require("../database/config").sequelize;
 
 const clientesGet = async (req = request, res = response) => {
   try {
+    const { total = "true" } = req.query;
+    if (total == "false") {
+      const [results] = await sequelize.query("SELECT * FROM clientes");
+
+      return res.json({
+        clientes: results,
+      });
+    }
     const [results] = await sequelize.query("SELECT * FROM clientes");
     const [count] = await sequelize.query("SELECT COUNT(*) FROM clientes");
 
@@ -13,9 +21,7 @@ const clientesGet = async (req = request, res = response) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      msg: "Error en el servidor",
-    });
+    res.status(500).json({ msg: "Error en el servidor" });
   }
 };
 

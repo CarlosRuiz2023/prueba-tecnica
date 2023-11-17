@@ -8,6 +8,7 @@ const {
   existeClientePorId,
   emailInexiste,
   validarCP,
+  existeClientePorNombre,
 } = require("../helpers/db-validators");
 
 const {
@@ -16,6 +17,7 @@ const {
   clientesPut,
   clientesDelete,
   clienteGet,
+  clientesGetNom,
 } = require("../controllers/clientes");
 
 const router = Router();
@@ -26,6 +28,12 @@ router.get(
   "/:id",
   [check("id").custom(existeClientePorId), validarCampos],
   clienteGet
+);
+
+router.get(
+  "/search/:nombre",
+  [check("nombre").custom(existeClientePorNombre), validarCampos],
+  clientesGetNom
 );
 
 router.put(

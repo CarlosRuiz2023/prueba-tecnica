@@ -1,4 +1,6 @@
 const { response } = require("express");
+const { Op } = require("sequelize");
+
 const Cliente = require("../models/cliente");
 
 const emailExiste = async (email = "") => {
@@ -37,6 +39,21 @@ const existeClientePorId = async (id) => {
   }
 };
 
+const existeClientePorNombre = async (nombre) => {
+  // Verificar si el cliente existe por su ID
+  const cliente = await Cliente.findOne({
+    where: {
+      nombre: {
+        [Op.iLike]: `%${nombre}%`,
+      },
+    },
+  });
+
+  if (!cliente) {
+    throw new Error(`El cliente con nombre ${nombre} no existe`);
+  }
+};
+
 const validarCP = (value) => {
   if (!/^\d{5}$/.test(value)) {
     throw new Error("El CP debe tener 5 dígitos");
@@ -48,5 +65,6 @@ module.exports = {
   emailInexiste,
   emailExiste,
   existeClientePorId,
+  existeClientePorNombre,
   validarCP,
 };

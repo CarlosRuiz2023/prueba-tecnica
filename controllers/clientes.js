@@ -1,6 +1,7 @@
 const { response, request } = require("express");
 const Cliente = require("../models/cliente");
 const sequelize = require("../database/config").sequelize;
+const { Op } = require("sequelize");
 
 const clientesGet = async (req = request, res = response) => {
   try {
@@ -34,6 +35,28 @@ const clienteGet = async (req = request, res = response) => {
 
     res.json({
       cliente: results,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error en el servidor",
+    });
+  }
+};
+
+const clientesGetNom = async (req, res = response) => {
+  try {
+    const { nombre } = req.params;
+    const clientes = await Cliente.findAll({
+      where: {
+        nombre: {
+          [Op.iLike]: `%${nombre}%`,
+        },
+      },
+    });
+
+    res.json({
+      clientes: clientes,
     });
   } catch (error) {
     console.log(error);
@@ -163,6 +186,7 @@ const clientesDelete = async (req, res = response) => {
 module.exports = {
   clientesGet,
   clienteGet,
+  clientesGetNom,
   clientesPost,
   clientesPut,
   clientesDelete,
